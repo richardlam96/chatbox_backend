@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const app = express();
+app.use(express.static(path.join(__dirname, 'build')));
 const server = app.listen(process.env.PORT || 3000, function() {
 	console.log('Discord Clone started.');
 });
