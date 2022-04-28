@@ -110,9 +110,6 @@ io
 //     res.sendFile(path.join(__dirname, '..', 'build', 'service-worker.js'));
 // });
 
-
-
-
-http.listen(process.env.PORT, process.env.IP, function() {
+http.listen(process.env.PORT || 3000, function() {
 	console.log('Discord Clone started.');
 });
