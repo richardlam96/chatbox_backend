@@ -2,10 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const app = express();
-
-// Imports for real time.
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+app.listen(process.env.PORT || 3000, function() {
+	console.log('Discord Clone started.');
+});
+// const http = require('http').createServer(app);
+const io = require('socket.io')(app);
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -110,6 +111,6 @@ io
 //     res.sendFile(path.join(__dirname, '..', 'build', 'service-worker.js'));
 // });
 
-http.listen(process.env.PORT || 3000, function() {
-	console.log('Discord Clone started.');
-});
+// http.listen(process.env.PORT || 3000, function() {
+// 	console.log('Discord Clone started.');
+// });
