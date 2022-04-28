@@ -2,11 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const app = express();
-app.listen(process.env.PORT || 3000, function() {
+const server = app.listen(process.env.PORT || 3000, function() {
 	console.log('Discord Clone started.');
 });
 // const http = require('http').createServer(app);
-const io = require('socket.io')(app);
+const io = require('socket.io')(server);
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
