@@ -2,13 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const app = express();
-app.use(express.static(path.join(__dirname, 'build')));
-const server = app.listen(process.env.PORT || 3000, function() {
-	console.log('Discord Clone started.');
-});
-// const http = require('http').createServer(app);
-const io = require('socket.io')(server);
-
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -23,10 +16,11 @@ const friendsRoutes = require('./routes/friends');
 
 
 app.use(cors());
+
 app.use(bodyParser.json());
 
 // Routes.
-app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
 
 app.use('/api/users', 
   loginRequired,
@@ -65,6 +59,18 @@ app.use(function(req, res, next) {
 });
 
 app.use(errorHandler);
+
+// app.get('/', function (req, res) {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
+
+const server = app
+  // .use(express.static(path.join(__dirname, 'build')))
+  .listen(process.env.PORT || 3000, () => {
+    console.log('Discord Clone started.');
+  });
+// const http = require('http').createServer(app);
+const io = require('socket.io')(server);
 
 io
 .on('connection', socket => {
@@ -105,9 +111,6 @@ io
 
 // Production.
 // app.use(express.static(path.join(__dirname, 'build')));
-// app.get('/', function (req, res) {
-//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
 // app.get('/service-worker.js', function (req, res) {
 //     res.sendFile(path.join(__dirname, '..', 'build', 'service-worker.js'));
 // });
